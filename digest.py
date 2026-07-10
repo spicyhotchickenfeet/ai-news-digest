@@ -82,16 +82,21 @@ def send_email(subject, body):
     gmail_user = os.environ["GMAIL_USER"]
     gmail_app_password = os.environ["GMAIL_APP_PASSWORD"]
     to_email = os.environ.get("TO_EMAIL", gmail_user)
+    cc_email = os.environ.get("CC_EMAIL", "")
 
     message = MIMEMultipart()
     message["From"] = gmail_user
     message["To"] = to_email
+    if cc_email:
+        message["Cc"] = cc_email
     message["Subject"] = subject
     message.attach(MIMEText(body, "plain"))
 
+    recipients = [to_email] + [addr.strip() for addr in cc_email.split(",") if addr.strip()]
+
     with smtplib.SMTP_SSL("smtp.gmail.com", 465) as server:
         server.login(gmail_user, gmail_app_password)
-        server.sendmail(gmail_user, to_email, message.as_string())
+        server.sendmail(gmail_user, recipients, message.as_string())
 
 
 def main():

@@ -12,6 +12,7 @@ Sends a free daily email with the top 10 AI / data science headlines, pulled fro
    - `GMAIL_USER` — the Gmail address to send from.
    - `GMAIL_APP_PASSWORD` — the 16-character app password from step 1.
    - `TO_EMAIL` — the address to receive the digest (e.g. your student email). Optional — defaults to `GMAIL_USER`.
+   - `CC_EMAIL` — optional. One or more addresses to Cc, comma-separated (e.g. `a@example.com,b@example.com`).
 
 3. Done. The workflow in [.github/workflows/daily-digest.yml](.github/workflows/daily-digest.yml) runs daily at 06:00 UTC (~07:00–08:00 Netherlands time). Trigger it manually anytime from the Actions tab ("Run workflow") to test.
 
