@@ -1,4 +1,4 @@
-"""Fetch top AI / data science headlines from RSS feeds and email a digest."""
+"""Fetch top headlines on AI's impact on society and data science, and email a digest."""
 
 import os
 import smtplib
@@ -9,20 +9,30 @@ from email.mime.text import MIMEText
 import feedparser
 
 FEEDS = [
-    "https://techcrunch.com/category/artificial-intelligence/feed/",
     "https://www.technologyreview.com/topic/artificial-intelligence/feed",
+    "https://techcrunch.com/category/artificial-intelligence/feed/",
+    "https://www.theguardian.com/technology/artificialintelligenceai/rss",
+    "https://www.wired.com/feed/tag/ai/latest/rss",
+    "https://arstechnica.com/ai/feed/",
     "https://venturebeat.com/category/ai/feed/",
-    "https://www.artificialintelligence-news.com/feed/",
+    "https://www.kdnuggets.com/feed",
     "https://www.marktechpost.com/feed/",
-    "http://export.arxiv.org/rss/cs.AI",
-    "http://export.arxiv.org/rss/cs.LG",
 ]
 
+# Mix of two angles: how AI/data science affects everyday life (healthcare,
+# education, jobs, ethics, policy) AND genuinely interesting tech/data-science
+# developments (new models, tools, research trends) worth knowing as a CS/DS
+# student — not just societal framing, but not paper-level jargon either.
 KEYWORDS = [
     "ai", "artificial intelligence", "machine learning", "data science",
-    "llm", "large language model", "neural network", "deep learning",
-    "generative ai", "genai", "nlp", "chatgpt", "claude", "gemini",
-    "openai", "anthropic", "model", "dataset", "algorithm",
+    "llm", "large language model", "generative ai", "genai", "neural network",
+    "chatgpt", "claude", "gemini", "openai", "anthropic", "model", "algorithm",
+    "python", "kaggle", "statistics", "big data", "open source", "research",
+    "healthcare", "hospital", "doctor", "patient", "medicine", "diagnosis",
+    "student", "school", "university", "education", "teacher", "classroom",
+    "job", "jobs", "workforce", "workplace", "hiring", "automation",
+    "ethics", "bias", "privacy", "regulation", "policy", "law", "lawsuit",
+    "society", "misinformation", "deepfake", "surveillance",
 ]
 
 TOP_N = 10
@@ -72,7 +82,7 @@ def fetch_headlines():
 
 def build_email_body(headlines):
     today = datetime.now(timezone.utc).strftime("%B %d, %Y")
-    lines = [f"Top {len(headlines)} AI / Data Science headlines for {today}\n"]
+    lines = [f"Top {len(headlines)} AI, data science & tech headlines for {today}\n"]
     for i, item in enumerate(headlines, start=1):
         lines.append(f"{i}. {item['title']} ({item['source']})\n   {item['link']}\n")
     return "\n".join(lines)
@@ -106,7 +116,7 @@ def main():
         return
 
     today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
-    subject = f"AI / Data Science Digest - {today}"
+    subject = f"AI, Data Science & Society Digest - {today}"
     body = build_email_body(headlines)
 
     send_email(subject, body)

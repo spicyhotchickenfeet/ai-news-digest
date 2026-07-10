@@ -1,6 +1,6 @@
 # ai-news-digest
 
-Sends a free daily email with the top 10 AI / data science headlines, pulled from RSS feeds (TechCrunch, MIT Tech Review, VentureBeat, arXiv cs.AI/cs.LG, and more). Runs automatically every morning via GitHub Actions — no server or paid API required.
+Sends a free daily email with the top 10 headlines mixing AI's impact on society (healthcare, education, jobs, ethics/policy) with genuinely interesting AI/data-science/tech developments — pulled from general-audience and data-science-focused RSS feeds (MIT Tech Review, TechCrunch, The Guardian, Wired, Ars Technica, VentureBeat, KDnuggets, MarkTechPost), not paper-level research feeds. Runs automatically every morning via GitHub Actions — no server or paid API required.
 
 ## Setup
 
